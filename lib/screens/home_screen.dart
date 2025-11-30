@@ -26,18 +26,6 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: () {
-              final newItem = Products(
-                id: "101",
-                name: "Gaming Monitor",
-                price: 22.5,
-              );
-              context.read<CartCubit>().addItem(newItem);
-            },
-            child: const Text("Add Item"),
-          ),
-
           Expanded(
             child: BlocBuilder<CartCubit, List<Products>>(
               builder: (context, state) {
