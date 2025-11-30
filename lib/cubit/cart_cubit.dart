@@ -17,7 +17,16 @@ class CartCubit extends Cubit<List<Products>> {
   }
 
   void addItem(Products product) {
-    final newList = [...state, product];
+    final int index = state.indexWhere((item) => item.id == product.id);
+    final List<Products> newList = List.of(state);
+
+    if (index != -1) {
+      final oldItem = newList[index];
+      final updatedItem = oldItem.copyWith(quantity: oldItem.quantity + 1);
+      newList[index] = updatedItem;
+    } else {
+      newList.add(product);
+    }
     emit(newList);
 
     _box.put('my_simple_cart', newList);
