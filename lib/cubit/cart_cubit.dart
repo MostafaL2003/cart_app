@@ -32,10 +32,24 @@ class CartCubit extends Cubit<List<Products>> {
     _box.put('my_simple_cart', newList);
   }
 
-  void removeItem(Products item) {
-    final newList = state.where((word) => word != item).toList();
-    emit(newList);
+  void removeItem(Products product) {
+    final int index = state.indexWhere((item) => item.id == product.id);
 
+    if (index == -1) return;
+
+    final List<Products> newList = List.of(state);
+    final existingItem = newList[index];
+
+    if (existingItem.quantity > 1) {
+      final updatedItem = existingItem.copyWith(
+        quantity: existingItem.quantity - 1,
+      );
+      newList[index] = updatedItem;
+    } else {
+      newList.removeAt(index);
+    }
+
+    emit(newList);
     _box.put('my_simple_cart', newList);
   }
 }
