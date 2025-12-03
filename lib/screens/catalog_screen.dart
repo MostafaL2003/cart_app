@@ -1,6 +1,6 @@
 import 'package:cart_app/models/products.dart';
 import 'package:cart_app/screens/home_screen.dart';
-import 'package:cart_app/widgets/catalog_product_card.dart';
+import 'package:cart_app/screens/order_histor_screen.dart';
 import 'package:cart_app/widgets/product_section.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +14,8 @@ class CatalogScreen extends StatelessWidget {
       price: 350.0,
       image:
           "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=800&q=80",
+      description:
+          "Designed for 12+ hour workdays. Features adjustable lumbar support, breathable mesh back, and 4D armrests. The perfect throne for coding.",
     ),
     Products(
       id: "101",
@@ -21,6 +23,8 @@ class CatalogScreen extends StatelessWidget {
       price: 600.0,
       image:
           "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=800&q=80",
+      description:
+          "Solid oak wood top with dual-motor lift system. Go from sitting to standing in 3 seconds. Memory presets included.",
     ),
     Products(
       id: "102",
@@ -58,6 +62,17 @@ class CatalogScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(
+            icon: const Icon(Icons.history, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OrderHistoryScreen(),
+                ),
+              );
+            },
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(

@@ -1,3 +1,4 @@
+import 'package:cart_app/models/order.dart';
 import 'package:cart_app/models/products.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -51,5 +52,21 @@ class CartCubit extends Cubit<List<Products>> {
 
     emit(newList);
     _box.put('my_simple_cart', newList);
+  }
+
+  void submitOrder(double totalAmount) {
+    final order = Order(
+      id: DateTime.now().toString(),
+      date: DateTime.now(),
+      items: List.of(state),
+      totalAmount: totalAmount,
+    );
+
+    final orderBox = Hive.box('orders');
+    orderBox.add(order);
+
+    final List<Products> emptyList = [];
+    emit(emptyList);
+    _box.put('my_simple_cart', emptyList);
   }
 }

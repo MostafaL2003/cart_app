@@ -12,10 +12,20 @@ class CartListTile extends StatelessWidget {
     return ListTile(
       title: Text(item.name),
       subtitle: Text("\$${item.price}"),
-      leading: const Icon(Icons.shopping_cart),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Image.network(
+          item.image,
+          width: 50,
+          height: 50,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return const Icon(Icons.image_not_supported, color: Colors.grey);
+          },
+        ),
+      ),
       trailing: Text("x${item.quantity}"),
       onTap: () => context.read<CartCubit>().removeItem(item),
     );
-    
   }
 }

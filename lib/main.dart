@@ -1,4 +1,5 @@
 import 'package:cart_app/cubit/cart_cubit.dart';
+import 'package:cart_app/models/order.dart';
 import 'package:cart_app/models/products.dart';
 import 'package:cart_app/screens/catalog_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(ProductsAdapter());
+  Hive.registerAdapter(OrderAdapter());
   await Hive.openBox('cart');
+  await Hive.openBox('orders');
 
   runApp(const MyApp());
 }

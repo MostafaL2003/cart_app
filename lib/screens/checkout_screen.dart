@@ -1,5 +1,7 @@
+import 'package:cart_app/cubit/cart_cubit.dart';
 import 'package:cart_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckoutScreen extends StatelessWidget {
   CheckoutScreen({super.key});
@@ -68,9 +70,19 @@ class CheckoutScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
+                    final cartState = context.read<CartCubit>().state;
+                    double total = 0;
+                    for (var item in cartState) {
+                      total += (item.price * item.quantity);
+                    }
+                    context.read<CartCubit>().submitOrder(total);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Processing Payment...")),
+                      const SnackBar(
+                        content: Text("Order Placed Successfully!"),
+                        backgroundColor: Colors.green,
+                      ),
                     );
+                    Navigator.popUntil(context, (route) => route.isFirst);
                   }
                 },
                 child: const Text(
