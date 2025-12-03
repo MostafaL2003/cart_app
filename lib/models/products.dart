@@ -11,12 +11,15 @@ class Products {
   final double price;
   @HiveField(3)
   final int quantity;
+  @HiveField(4)
+  final String image;
 
   Products({
     required this.id,
     required this.name,
     required this.price,
     this.quantity = 1,
+    required this.image
   });
 
   Products copyWith({String? id, String? name, double? price, int? quantity}) {
@@ -24,7 +27,8 @@ class Products {
       id: id ?? this.id,
       name: name ?? this.name,
       price: price ?? this.price,
-      quantity: quantity ?? this.quantity,
+      quantity: quantity ?? this.quantity, 
+      image: image ?? this.image,
     );
   }
 }

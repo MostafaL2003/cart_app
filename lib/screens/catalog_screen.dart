@@ -1,20 +1,57 @@
 import 'package:cart_app/models/products.dart';
 import 'package:cart_app/screens/home_screen.dart';
 import 'package:cart_app/widgets/catalog_product_card.dart';
+import 'package:cart_app/widgets/product_section.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-
 
 class CatalogScreen extends StatelessWidget {
   const CatalogScreen({super.key});
 
   static List<Products> inventory = [
-    Products(id: "100", name: "Mouse", price: 80),
-    Products(id: "101", name: "Monitor", price: 200),
-    Products(id: "102", name: "Keyboard", price: 120),
-    Products(id: "103", name: "Mouse Pad", price: 30),
-    Products(id: "104", name: "Headset", price: 150),
+    Products(
+      id: "100",
+      name: "Ergonomic Chair",
+      price: 350.0,
+      image:
+          "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=800&q=80",
+    ),
+    Products(
+      id: "101",
+      name: "Standing Desk",
+      price: 600.0,
+      image:
+          "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=800&q=80",
+    ),
+    Products(
+      id: "102",
+      name: "Monitor Arm",
+      price: 85.0,
+      image:
+          "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=800&q=80",
+    ),
+    Products(
+      id: "103",
+      name: "Mechanical Keychron",
+      price: 110.0,
+      image:
+          "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=800&q=80",
+    ),
+    Products(
+      id: "104",
+      name: "Wool Desk Mat (Grey)",
+      price: 25.0,
+
+      image:
+          "https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=800&q=80",
+    ),
+    Products(
+      id: "105",
+      name: "ScreenBar Light",
+      price: 45.0,
+
+      image:
+          "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80",
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -38,23 +75,21 @@ class CatalogScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.75,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+      body: ListView(
+        padding: const EdgeInsets.only(bottom: 40, top: 20),
+        children: [
+          ProductSection(title: "Featured Setup", products: inventory),
+          const SizedBox(height: 30),
+          ProductSection(
+            title: "Must-Have Accessories",
+            products: inventory.reversed.toList(),
           ),
-
-          itemCount: inventory.length,
-          itemBuilder: (context, index) {
-            final product = inventory[index];
-
-            return CatalogProductCard(product: product);
-          },
-        ),
+          const SizedBox(height: 30),
+          ProductSection(
+            title: "Flash Deals 🔥",
+            products: inventory.take(3).toList(),
+          ),
+        ],
       ),
     );
   }
