@@ -1,4 +1,5 @@
 import 'package:cart_app/cubit/cart_cubit.dart';
+import 'package:cart_app/cubit/catalog_cubit.dart';
 import 'package:cart_app/models/order.dart';
 import 'package:cart_app/models/products.dart';
 import 'package:cart_app/screens/catalog_screen.dart';
@@ -22,8 +23,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => CartCubit()),
+        BlocProvider(create: (context) => CatalogCubit()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: CatalogScreen(),

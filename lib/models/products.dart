@@ -25,6 +25,17 @@ class Products {
     this.description = "No description available",
   });
 
+  factory Products.fromJson(Map<String, dynamic> json) {
+    return Products(
+      id: json['id'].toString(),
+      name: json['title'] ?? 'No Name',
+      price: (json['price'] as num).toDouble(),
+      image: json['image'] ?? '',
+      description: json['description'] ?? 'No Description',
+      quantity: 1,
+    );
+  }
+
   Products copyWith({String? id, String? name, double? price, int? quantity}) {
     return Products(
       id: id ?? this.id,
@@ -34,4 +45,6 @@ class Products {
       image: image ?? this.image,
     );
   }
+
+
 }
